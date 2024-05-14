@@ -78,3 +78,29 @@ services:
     command: server --console-address ":9001" /data
 
 ```
+
+
+This Docker Compose configuration sets up two services:
+#### mage ai:
+
+- container_name: mage_spark_test
+- build: Builds the Docker container using the Dockerfile located in the GitHub repository https://github.com/mage-ai/compose-quickstart.git.
+- environment: Sets the MINIO_URL environment variable to http://minio:9000, indicating the MinIO server URL.
+- ports: Exposes port 6789 for accessing the service.
+- command: Installs dependencies, including Java 11, PySpark, Delta Spark, and MinIO Python client, and then executes the /app/run_app.sh script to start the Mage AI service with a demo project.
+
+#### 2. Minio:
+- container_name: spark-minio-mage
+- image: Uses the quay.io/minio/minio image for running the MinIO server.
+- ports: Exposes ports 9000 for MinIO server and 9001 for console access
+- volumes: Maps the local directory ./minio_data to the /data directory inside the container for persistent storage.
+- environment: Sets environment variables for MinIO configuration, including MINIO_ROOT_USER, MINIO_ROOT_PASSWORD, and MINIO_DEFAULT_BUCKETS.
+- command: Starts the MinIO server with console access enabled at port 9001 and using the /data directory for storage.
+
+After running, check if the both container is up as shown below 
+
+```sh 
+docker compose up -d
+```
+![](https://cdn-images-1.medium.com/max/800/1*7jIDz17jN8sUWX3mVeO4Kg.png)
+![Docker desktop running containers](https://cdn-images-1.medium.com/max/800/1*-OOKo9p39DsFtpSp4hmSSA.png)
