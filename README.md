@@ -6,15 +6,15 @@ In this data engineering post, we'll explore cutting-edge open-source technologi
 
 Let's kick things off with a quick overview of the technologies that will be utilized in this demonstration.
 
-**Spark :**
+#### Spark :
 Apache Spark is an open-source distributed computing system that is designed for big data processing and analytics. It provides an easy-to-use and unified platform for batch processing, real-time processing, machine learning, and interactive analytics.
-**Delta lake :**
+#### Delta lake :
 Delta Lake is an open-source storage layer that brings reliability to data lakes. It provides ACID transactions, scalable metadata handling, and unifies streaming and batch data processing. Delta Lake runs on top of existing data lake solutions such as Apache Spark and Hadoop Distributed File System (HDFS) and extends their capabilities to handle big data use cases more effectively.
-- **Mage Ai :**
+#### Mage Ai :
 Mage is an open-source, hybrid framework for transforming and integrating data
 ![mage AI](https://cdn-images-1.medium.com/max/800/0*GRwkLSdVPnAG75l5.png)
 
-- **Minio :**
+#### Minio :
 MinIO is an open-source, distributed object storage system. It is designed to be highly scalable and can be deployed on-premises, in the cloud, or in a hybrid environment. MinIO is compatible with Amazon S3 API, allowing applications that work with S3 to seamlessly switch to MinIO without any code changes.
 ![minio](https://cdn-images-1.medium.com/max/800/1*kYzDDtmAonxGhmoEhnjz7g.png)
 
