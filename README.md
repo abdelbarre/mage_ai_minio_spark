@@ -118,5 +118,15 @@ To access to the both services, you can check these URLs
 Use mage ai, Create Custom block as shown below
 ![](https://cdn-images-1.medium.com/max/800/1*mfnFItiGL2hkCchXpqm9XA.png)
 
-in this custom block, you set up config for spark, delta format and Minio, then you read data from API and you do small transformation (rename cols ) and at the end you save the data into Minio with delta format
+In the custom block, you set up config for spark, delta format and Minio, then you read data from API and you do small transformation (rename cols ) and at the end you save the data into Minio with delta format
 Lets dig deep into the code 😉
+
+In the following section you create spark session with Delta and and AWS s3 (org.apache.hadoop:hadoop-aws:3.3.4) packages.
+![](https://cdn-images-1.medium.com/max/800/1*npZxyS_To6JwRRpbySI13A.png)
+
+Then you will add some config param to make sure that spark session will have all credentials to save data to Minio with delta format.
+
+![](https://cdn-images-1.medium.com/max/800/1*K6aNrn-JbTsFzXf6Qn2mHw.png)
+After you will check or create if the is bucket name exists in the Minio object storage.
+
+![](https://cdn-images-1.medium.com/max/800/1*NQeN75-ns9IZXy7s-dtuXg.png)
