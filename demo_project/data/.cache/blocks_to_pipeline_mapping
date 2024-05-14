@@ -1,0 +1,1 @@
+{"data_loaders/revered_herald.py": {"block": {"file_path": null, "language": "python", "name": "revered herald", "type": "data_loader", "uuid": "revered_herald"}, "pipelines": []}, "custom/still_song.py": {"block": {"file_path": null, "language": "python", "name": "still song", "type": "custom", "uuid": "still_song"}, "pipelines": []}}

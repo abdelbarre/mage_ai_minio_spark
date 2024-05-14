@@ -1,0 +1,36 @@
+version: '3'
+services:
+  mageai:
+    container_name: mage_spark_test
+    build:
+      context: https://github.com/mage-ai/compose-quickstart.git
+      dockerfile: Dockerfile
+    environment:
+      - MINIO_URL=http://minio:9000
+    ports:
+      - '6789:6789'
+    command: >
+      bash -c "
+      echo 'deb http://deb.debian.org/debian bullseye main' > /etc/apt/sources.list.d/bullseye.list &&
+      apt-get update -y &&
+      apt-get install -y openjdk-11-jdk &&
+      rm /etc/apt/sources.list.d/bullseye.list &&
+      pip install pyspark &&
+      pip install delta-spark &&
+      pip install minio &&
+      /app/run_app.sh mage start demo_project
+      "
+
+  minio:
+    container_name: spark-minio-mage
+    image: quay.io/minio/minio
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    volumes:
+      - './minio_data:/data'
+    environment:
+      - MINIO_ROOT_USER=admin
+      - MINIO_ROOT_PASSWORD=admin123456789
+      - MINIO_DEFAULT_BUCKETS=your_bucket_name
+    command: server --console-address ":9001" /data
