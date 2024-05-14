@@ -81,7 +81,6 @@ services:
 
 ```
 
-
 This Docker Compose configuration sets up two services:
 #### mage ai:
 
@@ -105,6 +104,8 @@ After running, check if the both container is up as shown below
 docker compose up -d
 ```
 ![](https://cdn-images-1.medium.com/max/800/1*7jIDz17jN8sUWX3mVeO4Kg.png)
+
+
 ![Docker desktop running containers](https://cdn-images-1.medium.com/max/800/1*-OOKo9p39DsFtpSp4hmSSA.png)
 
 
