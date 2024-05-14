@@ -14,10 +14,12 @@ Apache Spark is an open-source distributed computing system that is designed for
 Delta Lake is an open-source storage layer that brings reliability to data lakes. It provides ACID transactions, scalable metadata handling, and unifies streaming and batch data processing. Delta Lake runs on top of existing data lake solutions such as Apache Spark and Hadoop Distributed File System (HDFS) and extends their capabilities to handle big data use cases more effectively.
 #### Mage Ai :
 Mage is an open-source, hybrid framework for transforming and integrating data
+
 ![mage AI](https://cdn-images-1.medium.com/max/800/0*GRwkLSdVPnAG75l5.png)
 
 #### Minio :
 MinIO is an open-source, distributed object storage system. It is designed to be highly scalable and can be deployed on-premises, in the cloud, or in a hybrid environment. MinIO is compatible with Amazon S3 API, allowing applications that work with S3 to seamlessly switch to MinIO without any code changes.
+
 ![minio](https://cdn-images-1.medium.com/max/800/1*kYzDDtmAonxGhmoEhnjz7g.png)
 
 Here are some key features of MinIO:
@@ -30,6 +32,7 @@ Here are some key features of MinIO:
 - Use Cases: MinIO is suitable for a wide range of use cases, including data storage, backup and archiving, content distribution, data lakes, and cloud-native applications
 
 ## 1 - installation and configuration
+
 ![](https://cdn-images-1.medium.com/max/800/1*4qlL1JEx6kNROGVk_uKYFw.gif)
 
 We will use docker as containerization tool for many reasons :
@@ -103,6 +106,7 @@ After running, check if the both container is up as shown below
 ```sh 
 docker compose up -d
 ```
+
 ![](https://cdn-images-1.medium.com/max/800/1*7jIDz17jN8sUWX3mVeO4Kg.png)
 
 
@@ -119,12 +123,14 @@ To access to the both services, you can check these URLs
 
 ## 2 Create Spark Data engineering pipeline
 Use mage ai, Create Custom block as shown below
+
 ![](https://cdn-images-1.medium.com/max/800/1*mfnFItiGL2hkCchXpqm9XA.png)
 
 In the custom block, you set up config for spark, delta format and Minio, then you read data from API and you do small transformation (rename cols ) and at the end you save the data into Minio with delta format
 Lets dig deep into the code 😉
 
 In the following section you create spark session with Delta and and AWS s3 (org.apache.hadoop:hadoop-aws:3.3.4) packages.
+
 ![](https://cdn-images-1.medium.com/max/800/1*npZxyS_To6JwRRpbySI13A.png)
 
 Then you will add some config param to make sure that spark session will have all credentials to save data to Minio with delta format.
@@ -225,6 +231,7 @@ def test_output(output, *args) -> None:
 ```
 
 ![](https://cdn-images-1.medium.com/max/1200/1*deS-1MLUTDdlPOJWGn5eZg.gif)
+
 
 ## Conclusion:
 
