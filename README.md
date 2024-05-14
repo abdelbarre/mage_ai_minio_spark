@@ -111,4 +111,12 @@ To access to the both services, you can check these URLs
 - **Mage Ai** : http://localhost:6789/
 
 ![Minio User interface after login](https://cdn-images-1.medium.com/max/800/1*N61Vb_fHCPyv2A3-RXGu8Q.png)
+- 
 ![mage ai user interface](https://cdn-images-1.medium.com/max/800/1*WuVBTory3TJ_CdhOGcrs6w.png)
+
+## 2 Create Spark Data engineering pipeline
+Use mage ai, Create Custom block as shown below
+![](https://cdn-images-1.medium.com/max/800/1*mfnFItiGL2hkCchXpqm9XA.png)
+
+in this custom block, you set up config for spark, delta format and Minio, then you read data from API and you do small transformation (rename cols ) and at the end you save the data into Minio with delta format
+Lets dig deep into the code 😉
