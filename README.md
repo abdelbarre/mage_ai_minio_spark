@@ -104,3 +104,8 @@ docker compose up -d
 ```
 ![](https://cdn-images-1.medium.com/max/800/1*7jIDz17jN8sUWX3mVeO4Kg.png)
 ![Docker desktop running containers](https://cdn-images-1.medium.com/max/800/1*-OOKo9p39DsFtpSp4hmSSA.png)
+
+
+To access to the both services, you can check these URLs
+- **minio** : http://localhost:9001/browser and login (use you credentials set on docker compose)
+- **Mage Ai** : http://localhost:6789/
