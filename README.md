@@ -127,6 +127,111 @@ In the following section you create spark session with Delta and and AWS s3 (org
 Then you will add some config param to make sure that spark session will have all credentials to save data to Minio with delta format.
 
 ![](https://cdn-images-1.medium.com/max/800/1*K6aNrn-JbTsFzXf6Qn2mHw.png)
+
 After you will check or create if the is bucket name exists in the Minio object storage.
 
 ![](https://cdn-images-1.medium.com/max/800/1*NQeN75-ns9IZXy7s-dtuXg.png)
+
+You arrive to Data loading step, you will readfile using API, and then create pandas Dataframe
+
+![](https://cdn-images-1.medium.com/max/800/1*uuMJrdIfM5WZgkDpE7Ww0Q.png)
+
+After that, the transformation and writing will be the next steps
+
+![](https://cdn-images-1.medium.com/max/800/1*OceC7gq8upnWOb4Lv3dxsQ.png)
+
+For All code, you can use
+
+```python
+from pandas import DataFrame
+import io
+import pandas as pd
+import requests
+from minio import Minio
+from pyspark.sql import SparkSession
+from delta import *
+from pyspark.sql import functions as F
+
+builder = SparkSession.builder.appName("minio_app") \
+    .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension") \
+    .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog")
+
+spark = configure_spark_with_delta_pip(builder, extra_packages=["org.apache.hadoop:hadoop-aws:3.3.4"]).getOrCreate()
+
+# add confs
+sc = spark.sparkContext
+sc._jsc.hadoopConfiguration().set("fs.s3a.access.key", "admin")
+sc._jsc.hadoopConfiguration().set("fs.s3a.secret.key", "admin123456789")
+sc._jsc.hadoopConfiguration().set("fs.s3a.endpoint", "http://minio:9000")
+sc._jsc.hadoopConfiguration().set("fs.s3a.path.style.access", "true")
+sc._jsc.hadoopConfiguration().set("fs.s3a.connection.ssl.enabled", "false")
+sc._jsc.hadoopConfiguration().set("fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem")
+sc._jsc.hadoopConfiguration().set("fs.s3a.connection.ssl.enabled", "false")
+
+client = Minio(
+        "minio:9000",
+        access_key="admin",
+        secret_key="admin123456789",
+        secure=False
+    )
+
+minio_bucket = "delta-demo-bucket"
+
+found = client.bucket_exists(minio_bucket)
+if not found:
+        client.make_bucket(minio_bucket)
+
+def data_from_internet():
+    url = 'https://raw.githubusercontent.com/mage-ai/datasets/master/restaurant_user_transactions.csv'
+
+    response = requests.get(url)
+    return pd.read_csv(io.StringIO(response.text), sep=',')
+
+@custom
+def rename_cols_write(*args, **kwargs):
+    """
+    args: The output from any upstream parent blocks (if applicable)
+
+    Returns:
+        Anything (e.g. data frame, dictionary, array, int, str, etc.)
+    """
+    # Specify your custom logic here
+    df_spark = spark.createDataFrame(data_from_internet())
+    
+    # Using selectExpr with list comprehension to rename columns
+    df = df_spark.selectExpr([f"`{col}` as `{col.replace(' ', '_')}`" for col in df_spark.columns])
+    
+    #write into Minio using Delta 
+  
+    df \
+        .write \
+        .format("delta") \
+        .partitionBy("cuisine") \
+        .mode("overwrite") \
+        .save(f"s3a://{minio_bucket}/data-delta")
+
+    return df
+
+@test
+def test_output(output, *args) -> None:
+    """
+    Template code for testing the output of the block.
+    """
+    assert output is not None, 'The output is undefined'
+
+```
+
+![](https://cdn-images-1.medium.com/max/1200/1*deS-1MLUTDdlPOJWGn5eZg.gif)
+
+## Conclusion:
+
+This article outlines a data engineering pipeline built with open-source technologies: Mage AI, Spark, Delta Lake, and Minio.
+
+The pipeline demonstrates:
+
+- Setting up a development environment using Docker Compose.
+- Creating a SparkSession with Delta Lake integration and configuring it for Minio.
+- Interacting with Minio to manage buckets.
+- Loading data, performing transformations, and saving it to Delta Lake storage on Minio.
+
+## Happy Learning 😁
