@@ -1,3 +1,5 @@
+## Architecture 
+
 ![](https://cdn-images-1.medium.com/max/1200/1*FO9f5aVy0mb5VYJwxrv3YQ.png)
 
 In this data engineering post, we'll explore cutting-edge open-source technologies that can assist us in constructing a resilient data engineering pipeline. If you're interested in learning more about Mage AI, please refer to this article. To begin with Mage AI,
