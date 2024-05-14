@@ -109,3 +109,6 @@ docker compose up -d
 To access to the both services, you can check these URLs
 - **minio** : http://localhost:9001/browser and login (use you credentials set on docker compose)
 - **Mage Ai** : http://localhost:6789/
+
+![Minio User interface after login](https://cdn-images-1.medium.com/max/800/1*N61Vb_fHCPyv2A3-RXGu8Q.png)
+![mage ai user interface](https://cdn-images-1.medium.com/max/800/1*WuVBTory3TJ_CdhOGcrs6w.png)
