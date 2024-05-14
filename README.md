@@ -26,3 +26,55 @@ Here are some key features of MinIO:
 - S3 Compatibility: MinIO is fully compatible with the Amazon S3 API, which means that you can use existing S3-compatible tools and libraries with MinIO without any modifications.
 - Ease of Use: MinIO is easy to deploy and manage, with a simple command-line interface and web-based dashboard for monitoring and administration.
 - Use Cases: MinIO is suitable for a wide range of use cases, including data storage, backup and archiving, content distribution, data lakes, and cloud-native applications
+
+## 1 - installation and configuration
+![](https://cdn-images-1.medium.com/max/800/1*4qlL1JEx6kNROGVk_uKYFw.gif)
+
+We will use docker as containerization tool for many reasons :
+
+- Simplifies software development by providing a consistent and isolated environment.
+- Enhances interoperability by enabling applications to be easily deployed on various platforms without compatibility issues.
+- Speeds up the development process by eliminating the need to set up complex development environments manually.
+- Improves scalability and flexibility as Docker containers can be quickly deployed and scaled up or down as needed.
+
+The following code is for docker compose file
+
+```yaml
+version: '3'
+services:
+  mageai:
+    container_name: mage_spark_test
+    build:
+      context: https://github.com/mage-ai/compose-quickstart.git
+      dockerfile: Dockerfile
+    environment:
+      - MINIO_URL=http://minio:9000
+    ports:
+      - '6789:6789'
+    command: >
+      bash -c "
+      echo 'deb http://deb.debian.org/debian bullseye main' > /etc/apt/sources.list.d/bullseye.list &&
+      apt-get update -y &&
+      apt-get install -y openjdk-11-jdk &&
+      rm /etc/apt/sources.list.d/bullseye.list &&
+      pip install pyspark &&
+      pip install delta-spark &&
+      pip install minio &&
+      /app/run_app.sh mage start demo_project
+      "
+
+  minio:
+    container_name: spark-minio-mage
+    image: quay.io/minio/minio
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    volumes:
+      - './minio_data:/data'
+    environment:
+      - MINIO_ROOT_USER=admin
+      - MINIO_ROOT_PASSWORD=admin123456789
+      - MINIO_DEFAULT_BUCKETS=your_bucket_name
+    command: server --console-address ":9001" /data
+
+```
