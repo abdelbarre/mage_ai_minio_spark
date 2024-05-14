@@ -24,12 +24,12 @@ MinIO is an open-source, distributed object storage system. It is designed to be
 
 Here are some key features of MinIO:
 
-- High Performance: MinIO is optimized for high performance and low latency, making it suitable for use cases that require rapid access to large amounts of data.
-- Scalability: MinIO is designed to scale horizontally, allowing you to add more storage nodes as your data needs grow. It uses a distributed architecture to distribute data across multiple servers, ensuring high availability and fault tolerance.
-- Data Protection: MinIO provides features such as data encryption, access control, and versioning to protect your data from unauthorized access, tampering, and data loss.
-- S3 Compatibility: MinIO is fully compatible with the Amazon S3 API, which means that you can use existing S3-compatible tools and libraries with MinIO without any modifications.
-- Ease of Use: MinIO is easy to deploy and manage, with a simple command-line interface and web-based dashboard for monitoring and administration.
-- Use Cases: MinIO is suitable for a wide range of use cases, including data storage, backup and archiving, content distribution, data lakes, and cloud-native applications
+- **High Performance**: MinIO is optimized for high performance and low latency, making it suitable for use cases that require rapid access to large amounts of data.
+- **Scalability**: MinIO is designed to scale horizontally, allowing you to add more storage nodes as your data needs grow. It uses a distributed architecture to distribute data across multiple servers, ensuring high availability and fault tolerance.
+- **Data Protection**: MinIO provides features such as data encryption, access control, and versioning to protect your data from unauthorized access, tampering, and data loss.
+- **S3 Compatibility**: MinIO is fully compatible with the Amazon S3 API, which means that you can use existing S3-compatible tools and libraries with MinIO without any modifications.
+- **Ease of Use**: MinIO is easy to deploy and manage, with a simple command-line interface and web-based dashboard for monitoring and administration.
+- **Use Cases**: MinIO is suitable for a wide range of use cases, including data storage, backup and archiving, content distribution, data lakes, and cloud-native applications
 
 ## 1 - installation and configuration
 
@@ -87,19 +87,19 @@ services:
 This Docker Compose configuration sets up two services:
 #### mage ai:
 
-- container_name: mage_spark_test
-- build: Builds the Docker container using the Dockerfile located in the GitHub repository https://github.com/mage-ai/compose-quickstart.git.
-- environment: Sets the MINIO_URL environment variable to http://minio:9000, indicating the MinIO server URL.
-- ports: Exposes port 6789 for accessing the service.
-- command: Installs dependencies, including Java 11, PySpark, Delta Spark, and MinIO Python client, and then executes the /app/run_app.sh script to start the Mage AI service with a demo project.
+- **container_name**: mage_spark_test
+- **build**: Builds the Docker container using the Dockerfile located in the GitHub repository https://github.com/mage-ai/compose-quickstart.git.
+- **environment**: Sets the MINIO_URL environment variable to http://minio:9000, indicating the MinIO server URL.
+- **ports**: Exposes port 6789 for accessing the service.
+- **command**: Installs dependencies, including Java 11, PySpark, Delta Spark, and MinIO Python client, and then executes the /app/run_app.sh script to start the Mage AI service with a demo project.
 
 #### 2. Minio:
-- container_name: spark-minio-mage
-- image: Uses the quay.io/minio/minio image for running the MinIO server.
-- ports: Exposes ports 9000 for MinIO server and 9001 for console access
-- volumes: Maps the local directory ./minio_data to the /data directory inside the container for persistent storage.
-- environment: Sets environment variables for MinIO configuration, including MINIO_ROOT_USER, MINIO_ROOT_PASSWORD, and MINIO_DEFAULT_BUCKETS.
-- command: Starts the MinIO server with console access enabled at port 9001 and using the /data directory for storage.
+- **container_name**: spark-minio-mage
+- **image**: Uses the quay.io/minio/minio image for running the MinIO server.
+- **ports**: Exposes ports 9000 for MinIO server and 9001 for console access
+- **volumes**: Maps the local directory ./minio_data to the /data directory inside the container for persistent storage.
+- **environment**: Sets environment variables for MinIO configuration, including MINIO_ROOT_USER, MINIO_ROOT_PASSWORD, and MINIO_DEFAULT_BUCKETS.
+- **command**: Starts the MinIO server with console access enabled at port 9001 and using the /data directory for storage.
 
 After running, check if the both container is up as shown below 
 
